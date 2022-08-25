@@ -1,0 +1,10 @@
+name: portmidi-zig
+main: src/portmidi.zig
+license: MIT
+description: A Zig wrapper for PortMidi
+
+dependencies:
+  - src: system_lib portmidi
+  
+c_include_dirs:
+  - src/include/
