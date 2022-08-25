@@ -1,5 +1,5 @@
 id: wyeji11bu2giwu88g83316nikj4eg5p4kjq7pln1hsvbtkyt
-name: portmidi-zig
+name: portmidi
 main: src/portmidi.zig
 license: MIT
 description: A Zig wrapper for PortMidi

@@ -30,7 +30,7 @@
 //
 
 const c = @cImport({
-    @cInclude("./include/portmidi.h");
+    @cInclude("portmidi.h");
 });
 
 pub const Stream = c.PortMidiStream;
