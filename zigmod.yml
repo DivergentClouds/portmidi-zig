@@ -7,8 +7,5 @@ description: A Zig wrapper for PortMidi
 dependencies:
   - src: system_lib portmidi
 
-c_source_files:
-  - src/include/portmidi.h
-
 c_include_dirs:
   - src/include/
