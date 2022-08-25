@@ -1,3 +1,4 @@
+id: wyeji11bu2giwu88g83316nikj4eg5p4kjq7pln1hsvbtkyt
 name: portmidi-zig
 main: src/portmidi.zig
 license: MIT
@@ -5,6 +6,9 @@ description: A Zig wrapper for PortMidi
 
 dependencies:
   - src: system_lib portmidi
-  
+
+c_source_files:
+  - src/include/portmidi.h
+
 c_include_dirs:
   - src/include/
