@@ -41,7 +41,7 @@ pub const Timestamp = c.PmTimestamp;
 pub const Event = c.PmEvent;
 pub const Message = c.PmMessage;
 
-pub const host_eror_msg_len = c.PM_HOST_ERROR_MSG_LEN;
+pub const host_error_msg_len = c.PM_HOST_ERROR_MSG_LEN;
 pub const default_sysex_buffer_size = c.PM_DEFAULT_SYSEX_BUFFER_SIZE;
 pub const deviceinfo_version = c.PM_DEVICEINFO_VERS;
 
