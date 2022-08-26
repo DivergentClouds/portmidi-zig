@@ -181,7 +181,7 @@ pub fn countDevices() c_int {
     return c.Pm_CountDevices();
 }
 
-pub fn getDeviceInfo(id: DeviceID) ?*DeviceInfo {
+pub fn getDeviceInfo(id: DeviceID) ?*const DeviceInfo {
     return c.Pm_GetDeviceInfo(id);
 }
 
