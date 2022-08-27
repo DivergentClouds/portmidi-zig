@@ -317,13 +317,13 @@ pub fn write(stream: *Stream, buffer: *Event, length: i32) !void {
     );
 }
 
-pub fn writeShort(stream: *Stream, when: Timestamp, msg: Message) !void {
+pub fn writeShort(stream: *Stream, when: i32, msg: Message) !void {
     try errorCheck(
         c.PmWriteShort(stream, when, msg)
     );
 }
 
-pub fn writeSysEx(stream: *Stream, when: Timestamp, msg: [:0xf7]u8) !void {
+pub fn writeSysEx(stream: *Stream, when: i32, msg: [:0xf7]u8) !void {
     try errorCheck(
         c.PmWriteSysExec(stream, when, msg)
     );
