@@ -42,7 +42,6 @@ pub const Message = c.PmMessage;
 
 pub const host_error_msg_len = c.PM_HOST_ERROR_MSG_LEN;
 pub const default_sysex_buffer_size = c.PM_DEFAULT_SYSEX_BUFFER_SIZE;
-pub const deviceinfo_version = c.PM_DEVICEINFO_VERS;
 
 pub const DeviceInfo = struct {
     struct_version: c_int,
@@ -78,93 +77,90 @@ pub const filter = struct {
 };
 
 pub const midi = struct {
-    pub const status = struct { 
-        /// Note off <key number> <velocity>
-        /// The bottom 4 bits are the channel number
-        /// See channel()
-        pub const note_off: u8 = 0x80;
-        
-        /// Note on <key number> <velocity>
-        /// The bottom 4 bits are the channel number
-        /// See channel()
-        pub const note_on: u8 = 0x90;
-        
-        /// Polyphonic aftertouch <key number> <pressure>
-        /// The bottom 4 bits are the channel number
-        /// See channel()
-        /// Called 'poly_at' in portmidi.c
-        pub const poly_aftertouch : u8 = 0xa0;
-        
-        /// Control change <controller number> <controller value>
-        /// The bottom 4 bits are the channel number
-        /// See channel()
-        /// Called 'control' in portmidi.c
-        pub const control_change: u8 = 0xb0;
-        
-        /// Program change <program number>
-        /// The bottom 4 bits are the channel number
-        /// See channel()
-        /// Called 'program' in portmidi.cc
-        pub const program_change: u8 = 0xc0;
-        
-        /// Channel aftertouch <pressure>
-        /// The bottom 4 bits are the channel number
-        /// See channel()
-        pub const channel_aftertouch: u8 = 0xd0;
-        
-        /// Pitchbend <LSB> <MSB>
-        /// The bottom 4 bits are the channel number
-        /// See channel()
-        pub const pitchbend: u8 = 0xe0;
-        
-        /// SysEx [...] EoX
-        /// Start of system exclusive message
-        pub const sysex: u8 = 0xf0;
+    /// Note off <key number> <velocity>
+    /// The bottom 4 bits are the channel number
+    /// See channel()
+    pub const note_off: u8 = 0x80;
+    
+    /// Note on <key number> <velocity>
+    /// The bottom 4 bits are the channel number
+    /// See channel()
+    pub const note_on: u8 = 0x90;
+    
+    /// Polyphonic aftertouch <key number> <pressure>
+    /// The bottom 4 bits are the channel number
+    /// See channel()
+    /// Called 'poly_at' in portmidi.c
+    pub const poly_aftertouch : u8 = 0xa0;
+    
+    /// Control change <controller number> <controller value>
+    /// The bottom 4 bits are the channel number
+    /// See channel()
+    /// Called 'control' in portmidi.c
+    pub const control_change: u8 = 0xb0;
+    
+    /// Program change <program number>
+    /// The bottom 4 bits are the channel number
+    /// See channel()
+    /// Called 'program' in portmidi.cc
+    pub const program_change: u8 = 0xc0;
+    
+    /// Channel aftertouch <pressure>
+    /// The bottom 4 bits are the channel number
+    /// See channel()
+    pub const channel_aftertouch: u8 = 0xd0;
+    
+    /// Pitchbend <LSB> <MSB>
+    /// The bottom 4 bits are the channel number
+    /// See channel()
+    pub const pitchbend: u8 = 0xe0;
+    
+    /// SysEx [...] EoX
+    /// Start of system exclusive message
+    pub const sysex: u8 = 0xf0;
 
-        /// Midi Timecode <quarter frame message>
-        pub const mtc: u8 = 0xf1;
-        
-        /// Song position <LSB> <MSB>
-        /// Called 'songpos' in portmidi.c
-        pub const song_postion: u8 = 0xf2;
+    /// Midi Timecode <quarter frame message>
+    pub const mtc: u8 = 0xf1;
+    
+    /// Song position <LSB> <MSB>
+    /// Called 'songpos' in portmidi.c
+    pub const song_postion: u8 = 0xf2;
 
-        /// Song select <song number>
-        /// Called 'songsel' in portmidi.c
-        pub const song_select: u8 = 0xf3;
-        
-        /// Tune Request
-        /// Called 'tune' in portmidi.c
-        pub const tune_request: u8 = 0xf6;
-        
-        /// Marks the end of a SysEx message
-        /// See midi.status.sysex
-        pub const eox: u8 = 0xf7;
+    /// Song select <song number>
+    /// Called 'songsel' in portmidi.c
+    pub const song_select: u8 = 0xf3;
+    
+    /// Tune Request
+    /// Called 'tune' in portmidi.c
+    pub const tune_request: u8 = 0xf6;
+    
+    /// Marks the end of a SysEx message
+    /// See midi.status.sysex
+    pub const eox: u8 = 0xf7;
 
-        /// Timing clock
-        /// Called 'clock' in portmidi.c
-        pub const timing_clock: u8 = 0xf8;
+    /// Timing clock
+    /// Called 'clock' in portmidi.c
+    pub const timing_clock: u8 = 0xf8;
 
-        /// Start sequence
-        /// Called 'start' in portmmidi.c
-        pub const start_sequence: u8 = 0xfa;
+    /// Start sequence
+    /// Called 'start' in portmmidi.c
+    pub const start_sequence: u8 = 0xfa;
 
-        /// Continue sequence
-        /// Called 'continue' in portmidi.c
-        pub const continue_sequence: u8 = 0xfb;
+    /// Continue sequence
+    /// Called 'continue' in portmidi.c
+    pub const continue_sequence: u8 = 0xfb;
 
-        /// Stop sequence
-        /// Called 'stop' in portmidi.c
-        pub const stop_sequence: u8 = 0xfc;
+    /// Stop sequence
+    /// Called 'stop' in portmidi.c
+    pub const stop_sequence: u8 = 0xfc;
 
-        /// Active sensing
-        /// Called 'active' in portmidi.c
-        pub const active_sensing: u8 = 0xfe;
+    /// Active sensing
+    /// Called 'active' in portmidi.c
+    pub const active_sensing: u8 = 0xfe;
 
-        /// System reset
-        /// Called 'reset' in portmidi.c
-        pub const system_reset: u8 = 0xff;
- 
-    };
+    /// System reset
+    /// Called 'reset' in portmidi.c
+    pub const system_reset: u8 = 0xff;
 };
 
 // Do NOT make public, use errorCheck instead
