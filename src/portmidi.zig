@@ -33,15 +33,17 @@ const c = @cImport({
     @cInclude("portmidi.h");
 });
 
-pub const Stream = c.PortMidiStream;
-pub const DeviceID = c.PmDeviceID;
+pub const Stream = anyopaque;
+pub const DeviceID = c_int;
 pub const TimeProcPtr = c.PmTimeProcPtr;
-pub const Timestamp = c.PmTimestamp;
-pub const Event = c.PmEvent;
-pub const Message = c.PmMessage;
 
 pub const host_error_msg_len = c.PM_HOST_ERROR_MSG_LEN;
 pub const default_sysex_buffer_size = c.PM_DEFAULT_SYSEX_BUFFER_SIZE;
+
+pub const Event = extern struct {
+    message: u32,
+    timestamp: i32,
+};
 
 pub const DeviceInfo = struct {
     struct_version: c_int,
@@ -203,7 +205,7 @@ pub fn getDeviceInfo(id: DeviceID) ?*const DeviceInfo {
 
 pub fn openInput(stream: **Stream,
         inputDevice: DeviceID, inputDriverInfo: ?*anyopaque, 
-        bufferSize: i32, time_proc: TimeProcPtr, time_info: *anyopaque
+        bufferSize: i32, time_proc: ?TimeProcPtr, time_info: *anyopaque
     ) !void {
 
     try errorCheck(
@@ -214,7 +216,7 @@ pub fn openInput(stream: **Stream,
 
 pub fn openOutput(stream: **Stream,
         outputDevice: DeviceID, outputDriverInfo: ?*anyopaque, 
-        bufferSize: i32, time_proc: TimeProcPtr, time_info: *anyopaque,
+        bufferSize: i32, time_proc: ?TimeProcPtr, time_info: *anyopaque,
         latency: i32,
     ) !void {
 
@@ -310,7 +312,7 @@ pub fn read(stream: *Stream, buffer: *Event, length: i32) !i32 {
 }
 
 pub fn write(stream: *Stream, buffer: *Event, length: i32) !void {
-    try hasData( // I'm like, 90% sure this is correct
+    try hasData(
         c.PmWrite(stream, buffer, length)
     );
 }
