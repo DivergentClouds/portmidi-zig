@@ -36,7 +36,6 @@ const c = @cImport({
 pub const Stream = c.PortMidiStream;
 pub const DeviceID = c.PmDeviceID;
 pub const TimeProcPtr = c.PmTimeProcPtr;
-pub const DeviceInfo = c.PmDeviceInfo;
 pub const Timestamp = c.PmTimestamp;
 pub const Event = c.PmEvent;
 pub const Message = c.PmMessage;
@@ -44,6 +43,17 @@ pub const Message = c.PmMessage;
 pub const host_error_msg_len = c.PM_HOST_ERROR_MSG_LEN;
 pub const default_sysex_buffer_size = c.PM_DEFAULT_SYSEX_BUFFER_SIZE;
 pub const deviceinfo_version = c.PM_DEVICEINFO_VERS;
+
+pub const DeviceInfo = struct {
+    struct_version: c_int,
+    interf: [*:0]const u8,
+    
+    name: [*:0]u8,
+    input: bool,
+    output: bool,
+    opened: bool,
+    is_virtual: bool,
+};
 
 pub const filter = struct {
     pub const active_sensing: i32 = c.PM_FILT_ACTIVE;
@@ -182,7 +192,17 @@ pub fn countDevices() c_int {
 }
 
 pub fn getDeviceInfo(id: DeviceID) ?*const DeviceInfo {
-    return c.Pm_GetDeviceInfo(id);
+    const c_info = c.Pm_GetDeviceInfo(id);
+    return DeviceInfo{
+        .struct_version = c_info.structVersion,
+        .interface = c_info.interf,
+        
+        .name = c_info.name,
+        .input = c_info.input == c.TRUE,
+        .ouput = c_info.output == c.TRUE,
+        .opened = c_info.opened == c.TRUE,
+        .is_virtual = c_info.is_virtual == c.TRUE,
+    };
 }
 
 pub fn openInput(stream: **Stream,
