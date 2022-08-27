@@ -317,7 +317,7 @@ pub fn write(stream: *Stream, buffer: *Event, length: i32) !void {
     );
 }
 
-pub fn writeShort(stream: *Stream, when: i32, msg: Message) !void {
+pub fn writeShort(stream: *Stream, when: i32, msg: u32) !void {
     try errorCheck(
         c.PmWriteShort(stream, when, msg)
     );
