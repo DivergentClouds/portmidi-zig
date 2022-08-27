@@ -47,7 +47,7 @@ pub const Event = extern struct {
 
 pub const DeviceInfo = struct {
     struct_version: c_int,
-    interf: [*:0]const u8,
+    interface: [*:0]const u8,
     
     name: [*:0]u8,
     input: bool,
@@ -189,17 +189,18 @@ pub fn countDevices() c_int {
     return c.Pm_CountDevices();
 }
 
+
 pub fn getDeviceInfo(id: DeviceID) ?*const DeviceInfo {
     const c_info = c.Pm_GetDeviceInfo(id);
-    return DeviceInfo{
-        .struct_version = c_info.structVersion,
-        .interface = c_info.interf,
+    return &DeviceInfo{
+        .struct_version = c_info.*.structVersion,
+        .interface = c_info.*.interf,
         
-        .name = c_info.name,
-        .input = c_info.input == c.TRUE,
-        .ouput = c_info.output == c.TRUE,
-        .opened = c_info.opened == c.TRUE,
-        .is_virtual = c_info.is_virtual == c.TRUE,
+        .name = c_info.*.name,
+        .input = c_info.*.input == c.TRUE,
+        .output = c_info.*.output == c.TRUE,
+        .opened = c_info.*.opened == c.TRUE,
+        .is_virtual = c_info.*.is_virtual == c.TRUE,
     };
 }
 
