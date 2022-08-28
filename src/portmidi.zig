@@ -206,7 +206,7 @@ pub fn getDeviceInfo(id: DeviceID) ?*const DeviceInfo {
 
 pub fn openInput(stream: **Stream,
         inputDevice: DeviceID, inputDriverInfo: ?*anyopaque, 
-        bufferSize: i32, time_proc: ?TimeProcPtr, time_info: *anyopaque
+        bufferSize: i32, time_proc: ?TimeProcPtr, time_info: ?*anyopaque
     ) !void {
 
     try errorCheck(
@@ -217,7 +217,7 @@ pub fn openInput(stream: **Stream,
 
 pub fn openOutput(stream: **Stream,
         outputDevice: DeviceID, outputDriverInfo: ?*anyopaque, 
-        bufferSize: i32, time_proc: ?TimeProcPtr, time_info: *anyopaque,
+        bufferSize: i32, time_proc: ?TimeProcPtr, time_info: ?*anyopaque,
         latency: i32,
     ) !void {
 
