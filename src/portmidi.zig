@@ -1,8 +1,6 @@
 // Requires PortMidi
 // https://github.com/PortMidi/portmidi/
 //
-// Other versions may or may not work
-//
 
 // The following functions have been intentionally excluded:
 //
@@ -35,7 +33,7 @@ const c = @cImport({
 
 pub const Stream = anyopaque;
 pub const DeviceID = c_int;
-pub const TimeProcPtr = c.PmTimeProcPtr;
+pub const TimeProcPtr = *const fn() callconv(.C) i32;
 
 pub const host_error_msg_len = c.PM_HOST_ERROR_MSG_LEN;
 pub const default_sysex_buffer_size = c.PM_DEFAULT_SYSEX_BUFFER_SIZE;
@@ -177,8 +175,7 @@ pub fn terminate() void {
 }
 
 pub fn hasHostError(stream: *Stream) bool {
-    if (c.Pm_HasHostError(stream) == c.TRUE) return true;
-    return false;
+    return c.Pm_HasHostError(stream) == c.TRUE;
 }
 
 pub fn getHostErrorText(msg: []u8) void {
